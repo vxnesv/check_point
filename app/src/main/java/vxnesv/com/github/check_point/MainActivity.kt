@@ -7,10 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import vxnesv.com.github.check_point.screens.LoginScreen
+import vxnesv.com.github.check_point.screens.MenuScreen
+import vxnesv.com.github.check_point.screens.PedidosScreen
+import vxnesv.com.github.check_point.screens.PerfilScreen
 import vxnesv.com.github.check_point.ui.theme.Check_pointTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,10 +24,27 @@ class MainActivity : ComponentActivity() {
         setContent {
             Check_pointTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val navController = rememberNavController()
 
+                    NavHost(
+                        navController = navController,
+                        startDestination = "login",
+                    ) {
+                        composable(route = "login") {
+                            LoginScreen(modifier = Modifier.padding(innerPadding), navController)
+                        }
+                        composable(route = "menu") {
+                            MenuScreen(modifier = Modifier.padding(innerPadding), navController)
+                        }
+                        composable(route = "pedidos") {
+                            PedidosScreen(modifier = Modifier.padding(innerPadding), navController)
+                        }
+                        composable(route = "perfil") {
+                            PerfilScreen(modifier = Modifier.padding(innerPadding), navController)
+                        }
+                    }
                 }
             }
         }
     }
 }
-
